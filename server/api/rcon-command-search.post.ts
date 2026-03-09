@@ -1,6 +1,18 @@
 import { Client } from "typesense";
 
 export default defineEventHandler(async (event) => {
+  const typesenseApiKey =
+    process.env.TYPESENSE_API_KEY ||
+    process.env.NUXT_TYPESENSE_API_KEY ||
+    process.env.NUXT_PUBLIC_TYPESENSE_API_KEY;
+
+  if (!typesenseApiKey) {
+    throw createError({
+      statusCode: 503,
+      statusMessage: "Search service is not configured (missing TYPESENSE_API_KEY)",
+    });
+  }
+
   const client = new Client({
     nodes: [
       {
@@ -9,7 +21,7 @@ export default defineEventHandler(async (event) => {
         protocol: "https",
       },
     ],
-    apiKey: process.env.TYPESENSE_API_KEY as string,
+    apiKey: typesenseApiKey,
     connectionTimeoutSeconds: 2,
   });
 
