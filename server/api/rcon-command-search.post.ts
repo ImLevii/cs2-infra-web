@@ -1,18 +1,18 @@
 import { Client } from "typesense";
 
-const client = new Client({
-  nodes: [
-    {
-      host: process.env.NUXT_PUBLIC_TYPESENSE_HOST as string,
-      port: 443,
-      protocol: "https",
-    },
-  ],
-  apiKey: process.env.TYPESENSE_API_KEY as string,
-  connectionTimeoutSeconds: 2,
-});
-
 export default defineEventHandler(async (event) => {
+  const client = new Client({
+    nodes: [
+      {
+        host: process.env.NUXT_PUBLIC_TYPESENSE_HOST as string,
+        port: 443,
+        protocol: "https",
+      },
+    ],
+    apiKey: process.env.TYPESENSE_API_KEY as string,
+    connectionTimeoutSeconds: 2,
+  });
+
   const body = await readBody(event);
 
   const results = await client

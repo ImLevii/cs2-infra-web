@@ -8,39 +8,39 @@ import {
 } from "@apollo/client/core";
 import { setContext } from "@apollo/client/link/context";
 
-const client = new Client({
-  nodes: [
-    {
-      host:
-        process.env.TYPESENSE_SERVICE_HOST ||
-        (process.env.NUXT_PUBLIC_TYPESENSE_HOST as string),
-      port: process.env.TYPESENSE_SERVICE_HOST ? 8108 : 443,
-      protocol: process.env.TYPESENSE_SERVICE_HOST ? "http" : "https",
-    },
-  ],
-  apiKey: process.env.TYPESENSE_API_KEY as string,
-  connectionTimeoutSeconds: 2,
-});
-
-const httpLink = createHttpLink({
-  uri: `https://${process.env.NUXT_PUBLIC_API_DOMAIN}/v1/graphql`,
-});
-
-const authLink = setContext((_, { headers }) => {
-  return {
-    headers: {
-      ...headers,
-      "x-hasura-admin-secret": process.env.HASURA_GRAPHQL_ADMIN_SECRET,
-    },
-  };
-});
-
-const apolloClient = new ApolloClient({
-  link: authLink.concat(httpLink),
-  cache: new InMemoryCache(),
-});
-
 export default defineEventHandler(async (event) => {
+  const client = new Client({
+    nodes: [
+      {
+        host:
+          process.env.TYPESENSE_SERVICE_HOST ||
+          (process.env.NUXT_PUBLIC_TYPESENSE_HOST as string),
+        port: process.env.TYPESENSE_SERVICE_HOST ? 8108 : 443,
+        protocol: process.env.TYPESENSE_SERVICE_HOST ? "http" : "https",
+      },
+    ],
+    apiKey: process.env.TYPESENSE_API_KEY as string,
+    connectionTimeoutSeconds: 2,
+  });
+
+  const httpLink = createHttpLink({
+    uri: `https://${process.env.NUXT_PUBLIC_API_DOMAIN}/v1/graphql`,
+  });
+
+  const authLink = setContext((_, { headers }) => {
+    return {
+      headers: {
+        ...headers,
+        "x-hasura-admin-secret": process.env.HASURA_GRAPHQL_ADMIN_SECRET,
+      },
+    };
+  });
+
+  const apolloClient = new ApolloClient({
+    link: authLink.concat(httpLink),
+    cache: new InMemoryCache(),
+  });
+
   const body = await readBody(event);
 
   let query = body.query?.trim();
