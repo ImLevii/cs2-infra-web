@@ -151,7 +151,7 @@ export default defineNuxtConfig({
     },
     workbox: {
       maximumFileSizeToCacheInBytes: 10 * 1024 * 1024,
-      globPatterns: ["**/*.{js,css,html}"],
+      globPatterns: sw ? ["**/*.{js,css,html}"] : [],
       navigateFallbackDenylist: [
         /^\/auth/,
         /^\/discord-invite/,
