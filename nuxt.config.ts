@@ -189,7 +189,7 @@ export default defineNuxtConfig({
       ],
     },
     devOptions: {
-      enabled: true,
+      enabled: false,
     },
     manifest: {
       name: "5stack",
