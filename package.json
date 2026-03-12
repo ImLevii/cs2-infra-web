@@ -20,7 +20,7 @@
     "@nuxtjs/i18n": "^9.5.4",
     "@nuxtjs/tailwindcss": "^6.14.0",
     "@types/simple-peer": "^9.11.8",
-    "@vite-pwa/nuxt": "^1.0.0",
+    "@vite-pwa/nuxt": "^0.10.6",
     "autoprefixer": "^10.4.21",
     "glob": "^11.0.2",
     "nuxt": "^3.17.2",
