@@ -133,7 +133,6 @@ export default defineNuxtConfig({
   },
 
   modules: [
-    "@nuxtjs/apollo",
     "@pinia/nuxt",
     "@nuxtjs/tailwindcss",
     "@nuxtjs/color-mode",
@@ -256,15 +255,6 @@ export default defineNuxtConfig({
      * @default "./components/ui"
      */
     componentDir: "./components/ui",
-  },
-
-  apollo: {
-    proxyCookies: true,
-    clients: {
-      default: {
-        httpEndpoint: `https://temp/v1/graphql`,
-      },
-    },
   },
 
   compatibilityDate: "2024-07-15",
